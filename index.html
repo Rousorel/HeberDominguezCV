@@ -95,6 +95,22 @@
       font-size: 13px;
       color: #999999;
     }
+    .download-btn {
+      display: inline-block;
+      background: #000000;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+    .download-btn:hover {
+      background: #333333;
+    }
   </style>
 </head>
 <body>
@@ -103,6 +119,7 @@
       <h1>Héber Domínguez Montano</h1>
       <h2>Supervisor de Centro de Distribución · Postulación Interna</h2>
       <p>26 años | Inglés intermedio | Universidad - Ingeniería en sistemas computacionales (1 año para concluir)</p>
+      <button class="download-btn" onclick="descargarCV()">Descargar CV</button>
     </header>
 
     <section>
@@ -169,5 +186,23 @@
       CV Web Profesional · Héber Domínguez Montano
     </footer>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function descargarCV() {
+      const elemento = document.querySelector('.container');
+      const clone = elemento.cloneNode(true);
+      const boton = clone.querySelector('.download-btn');
+      if (boton) boton.remove();
+      
+      const opt = {
+        margin: 5,
+        filename: 'Hebar_Dominguez_CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, allowTaint: true, useCORS: true },
+        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+      };
+      html2pdf().set(opt).from(clone).save();
+    }
+  </script>
 </body>
 </html>
